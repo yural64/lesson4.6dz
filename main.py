@@ -26,6 +26,9 @@
 # - `start()`: начинает игру, чередует ходы игрока и компьютера, пока один из героев не умрет.
 # Выводит информацию о каждом ходе (кто атаковал и сколько здоровья осталось у противника)
 # и объявляет победителя.
+#
+# Корректировка задания: сила удара при каждом ходе должна рандомно меняться от 0 до 20
+# (герои устают, теряют силы, могут промахнуться).
 
 import random
 
@@ -33,10 +36,11 @@ class Hero:
     def __init__(self, name):
         self.name = name
         self.health = 100
-        self.attack_power = 20
+#        self.attack_power = 20
 
     def attack(self, other):
-        damage = self.attack_power
+#        damage = self.attack_power
+        damage = random.randint(0, 20)  # Случайная сила удара от 0 до 20
         other.health -= damage
         print(f"{self.name} атакует {other.name} и наносит {damage} урона.")
         print(f"У {other.name} осталось {other.health} здоровья.\n")
