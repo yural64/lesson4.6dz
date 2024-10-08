@@ -26,3 +26,60 @@
 # - `start()`: начинает игру, чередует ходы игрока и компьютера, пока один из героев не умрет.
 # Выводит информацию о каждом ходе (кто атаковал и сколько здоровья осталось у противника)
 # и объявляет победителя.
+
+import random
+
+class Hero:
+    def __init__(self, name):
+        self.name = name
+        self.health = 100
+        self.attack_power = 20
+
+    def attack(self, other):
+        damage = self.attack_power
+        other.health -= damage
+        print(f"{self.name} атакует {other.name} и наносит {damage} урона.")
+        print(f"У {other.name} осталось {other.health} здоровья.\n")
+
+    def is_alive(self):
+        return self.health > 0
+
+
+class Game:
+    def __init__(self, player_name):
+        self.player = Hero(player_name)
+        self.computer = Hero("Компьютер")
+
+    def start(self):
+        print("Игра началась!\n")
+        while self.player.is_alive() and self.computer.is_alive():
+            # Ход игрока
+            self.player_turn()
+
+            # Проверяем, жив ли компьютер
+            if not self.computer.is_alive():
+                print(f"{self.player.name} победил!")
+                break
+
+            # Ход компьютера
+            self.computer_turn()
+
+            # Проверяем, жив ли игрок
+            if not self.player.is_alive():
+                print(f"{self.computer.name} победил!")
+                break
+
+    def player_turn(self):
+        input(f"{self.player.name}, нажмите Enter для атаки.")
+        self.player.attack(self.computer)
+
+    def computer_turn(self):
+        print(f"{self.computer.name} атакует!")
+        self.computer.attack(self.player)
+
+
+# Запуск игры
+if __name__ == "__main__":
+    player_name = input("Введите имя вашего героя: ")
+    game = Game(player_name)
+    game.start()
