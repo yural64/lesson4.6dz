@@ -36,7 +36,7 @@ class Hero:
     def __init__(self, name):
         self.name = name
         self.health = 100
-#        self.attack_power = 20
+        self.attack_power = 20
 
     def attack(self, other):
 #        damage = self.attack_power
@@ -74,11 +74,14 @@ class Game:
                 break
 
     def player_turn(self):
-        input(f"{self.player.name}, нажмите Enter для атаки.")
+        input(f"\033[91m{self.player.name}, нажмите Enter для атаки.\033[0m") # использую ANSI код
+        # для изменения цвета текста: \033[91m красный цвет, \033[0m сброс цвета
+        print()
         self.player.attack(self.computer)
 
     def computer_turn(self):
         print(f"{self.computer.name} атакует!")
+        print()
         self.computer.attack(self.player)
 
 
